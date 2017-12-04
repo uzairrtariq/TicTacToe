@@ -107,7 +107,23 @@ def print_slowly(text):
         sys.stdout.flush()
         sleep(0.5)
 
+
+def play_again():
+    again = input('Do you want to play again?(Yes or No):')
+    while again.lower() != 'yes' or again.lower() != 'no':
+        print('wrong input, please try again!')
+        again = input('Do you want to play again?(Yes or No)')
+
+    if again.lower() == 'no':
+       print('Thanks for playing!')
+    else:
+        return main()
+
+
+
+
 def play_against():
+
     against = input("Do you want to play against the computer or another opponent? type 'C' or 'O': ")
 
     #for error inputs
@@ -120,7 +136,9 @@ def play_against():
         #implemet oponent
     elif against.upper() == 'C':
         sign_select()
+
         #implement AI against the computer imposible to win level of difficulty hard
+        return 0
 
 #possibilities of win
 def win(sign):
@@ -128,30 +146,38 @@ def win(sign):
     if newBoard[7] == sign and newBoard[8] == sign and newBoard[9] == sign:
         #win
         print("Congratulations, " + str(sign) + " won!")
-        return 0
+        play_again()
     elif newBoard[7] == sign and newBoard[5] == sign and newBoard[3] == sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
     elif newBoard[7] == sign and newBoard[4] == sign and newBoard[1] == sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
     elif newBoard[7] == sign and newBoard[5] == sign and newBoard[3] == sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
     elif newBoard[4] == sign and newBoard[5] == sign and newBoard[6] == sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
     elif newBoard[7] == sign and newBoard[5] == sign and newBoard[3] == sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
     elif newBoard[1] == sign and newBoard[5] == sign and newBoard[9] == sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
     elif newBoard[1] == sign and newBoard[2] == sign and newBoard[3] == sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
     elif newBoard[9] == player1_sign and newBoard[6] == player1_sign and newBoard[3] == player1_sign:
         print("Congratulations, " + str(sign) + " won!")
+        play_again()
 
 
 def main():
