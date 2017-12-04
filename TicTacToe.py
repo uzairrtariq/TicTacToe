@@ -1,7 +1,7 @@
 #FinalProject
 #Tic-Tac-Toe
 #Andrea and Uzair
-# trial
+#trial
 #testing for andrea
 import random
 
@@ -10,20 +10,22 @@ import sys
 
 #Public constants
 player1_sign = ''
+#Initialized board with spaces
+newBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
-def draw():
+def draw(newBoard):
 
     #Textual Presentation of the board
     print('   |   |')
-    print(' ' + " " + ' | ' + " " + ' | ' + " ")
+    print(' ' + newBoard[7] + ' | ' + newBoard[8] + ' | ' + newBoard[9])
     print('   |   |')
     print('-----------')
     print('   |   |')
-    print(' ' + "4" + ' | ' + "5" + ' | ' + "6")
+    print(' ' + newBoard[4] + ' | ' + newBoard[5] + ' | ' + newBoard[6])
     print('   |   |')
     print('-----------')
     print('   |   |')
-    print(' ' + "7" + ' | ' + "8" + ' | ' + "9")
+    print(' ' + newBoard[1] + ' | ' + newBoard[2] + ' | ' + newBoard[3])
     print('   |   |')
 
 def sign_select():
@@ -78,24 +80,24 @@ def toss():
             print("Congratulations. You have won the toss and you will make the first move. ")
             print("Generating table for you..")
             print_slowly("LOADING")
-            draw()
+            draw(newBoard)
         elif random_int == tails:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
-            draw()
+            draw(newBoard)
 
     elif HorT.upper() == "T":
         if random_int == tails:
             print("Congratulations. You have won the toss and you will make the first move. ")
             print("Generating table for you..")
             print_slowly("LOADING")
-            draw()
+            draw(newBoard)
         else:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
-            draw()
+            draw(newBoard)
 
 def print_slowly(text):
     for c in text:
