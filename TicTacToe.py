@@ -103,6 +103,16 @@ def print_slowly(text):
         sys.stdout.flush()
         sleep(0.5)
 
+def play_against():
+    against = input('Do you want to play against the computer or another oponent?(computer or oponent)')
+    if against == 'oponent':
+        # implemet oponent
+    elif against == 'computer':
+        # implement AI against the computer imposible to win level of difficulty hard
+    else:
+        while against != 'oponetn' and against != 'computer':
+            against = input('please enter a valid answer,computer or oponent?')
+
 def main():
 
     print("Welcome to Textual Tic-Tac-Toe!")
