@@ -105,15 +105,29 @@ def print_slowly(text):
         sys.stdout.flush()
         sleep(0.5)
 
+
+def play_again():
+    again = input('Do you want to play again?(Yes or No)')
+    while again.lower() != 'yes' or again.lower() != 'no':
+        print('wrong input, please try again!')
+        again = input('Do you want to play again?(Yes or No)')
+
+    if again.lower() == 'no':
+       print('Thanks for playing!')
+    else:
+        return main()
+
+
+
+
 def play_against():
     against = input('Do you want to play against the computer or another oponent?(computer or oponent)')
     if against == 'oponent':
         # implemet oponent
     elif against == 'computer':
         # implement AI against the computer imposible to win level of difficulty hard
-    else:
-        while against != 'oponetn' and against != 'computer':
-            against = input('please enter a valid answer,computer or oponent?')
+
+
 
 def main():
 
