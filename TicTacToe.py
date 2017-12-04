@@ -10,6 +10,8 @@ import sys
 
 #Public constants
 player1_sign = ''
+player2_sign = ''
+
 #Initialized board with spaces
 newBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
@@ -106,21 +108,60 @@ def print_slowly(text):
         sleep(0.5)
 
 def play_against():
-    against = input('Do you want to play against the computer or another oponent?(computer or oponent)')
-    if against == 'oponent':
-        # implemet oponent
-    elif against == 'computer':
-        # implement AI against the computer imposible to win level of difficulty hard
-    else:
-        while against != 'oponetn' and against != 'computer':
-            against = input('please enter a valid answer,computer or oponent?')
+    against = input("Do you want to play against the computer or another opponent? type 'C' or 'O': ")
+
+    #for error inputs
+    while not (against.upper() == 'C' or against.upper() == 'O'):
+        print("Incorrect input. Please Try again!")
+        against = input("Do you want to play against the computer or another opponent? type 'C' or 'O': ")
+
+    if against.upper() == 'O':
+        sign_select()
+        #implemet oponent
+    elif against.upper() == 'C':
+        sign_select()
+        #implement AI against the computer imposible to win level of difficulty hard
+
+#possibilities of win
+def win(sign):
+    #all win possibilities
+    if newBoard[7] == sign and newBoard[8] == sign and newBoard[9] == sign:
+        #win
+        print("Congratulations, " + str(sign) + " won!")
+        return 0
+    elif newBoard[7] == sign and newBoard[5] == sign and newBoard[3] == sign:
+        print("Congratulations, " + str(sign) + " won!")
+
+    elif newBoard[7] == sign and newBoard[4] == sign and newBoard[1] == sign:
+        print("Congratulations, " + str(sign) + " won!")
+
+    elif newBoard[7] == sign and newBoard[5] == sign and newBoard[3] == sign:
+        print("Congratulations, " + str(sign) + " won!")
+
+    elif newBoard[4] == sign and newBoard[5] == sign and newBoard[6] == sign:
+        print("Congratulations, " + str(sign) + " won!")
+
+    elif newBoard[7] == sign and newBoard[5] == sign and newBoard[3] == sign:
+        print("Congratulations, " + str(sign) + " won!")
+
+    elif newBoard[1] == sign and newBoard[5] == sign and newBoard[9] == sign:
+        print("Congratulations, " + str(sign) + " won!")
+
+    elif newBoard[1] == sign and newBoard[2] == sign and newBoard[3] == sign:
+        print("Congratulations, " + str(sign) + " won!")
+
+    elif newBoard[9] == player1_sign and newBoard[6] == player1_sign and newBoard[3] == player1_sign:
+        print("Congratulations, " + str(sign) + " won!")
+
 
 def main():
 
     print("Welcome to Textual Tic-Tac-Toe!")
     print("You can either play with a friend, or you can play against the computer!")
+    play_against()
 
-    sign_select()
+    #put it inside play against.
+    #sign_select()
 
 main()
 
