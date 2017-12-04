@@ -2,7 +2,6 @@
 #Tic-Tac-Toe
 #Andrea and Uzair
 #trial
-#testing for andrea
 import random
 
 from time import sleep
