@@ -1,7 +1,12 @@
 #FinalProject
 #Tic-Tac-Toe
+<<<<<<< HEAD
 #Andrea and Uzair
 # trial
+=======
+#testing for andrea
+
+>>>>>>> 1350ecd43835a1e89a1dc5d0d47a1abe0e7d010a
 import random
 
 from time import sleep
