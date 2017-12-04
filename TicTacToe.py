@@ -49,9 +49,6 @@ def sign_select():
     print("Let's begin! ")
     toss()
 
-def Move1():
-    num = input("Where do you want to put the " + str(player1_sign))
-
 def toss():
     print("We will have a toss for who will go first.")
 
@@ -64,12 +61,8 @@ def toss():
         print("Please enter the correct input, H or T. Try again!")
         HorT = input("You can choose; Head or Tails? Please type in 'H' or 'T': ")
 
-
-
     random_int = random.randint(1,3)
-
     #random_int = 2
-
     heads = 1
     tails = 2
 
@@ -82,11 +75,13 @@ def toss():
             print("Generating table for you..")
             print_slowly("LOADING")
             draw(newBoard)
+
         elif random_int == tails:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
             draw(newBoard)
+
 
     elif HorT.upper() == "T":
         if random_int == tails:
@@ -94,11 +89,13 @@ def toss():
             print("Generating table for you..")
             print_slowly("LOADING")
             draw(newBoard)
+
         else:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
             draw(newBoard)
+
 
 def print_slowly(text):
     for c in text:
@@ -106,25 +103,8 @@ def print_slowly(text):
         sys.stdout.flush()
         sleep(0.5)
 
-
-def play_again():
-    again = input('Do you want to play again?(Yes or No):')
-    while again.lower() != 'yes' or again.lower() != 'no':
-        print('wrong input, please try again!')
-        again = input('Do you want to play again?(Yes or No)')
-
-    if again.lower() == 'no':
-       print('Thanks for playing!')
-    else:
-        return main()
-
-
-
-
 def play_against():
-
     against = input("Do you want to play against the computer or another opponent? type 'C' or 'O': ")
-
     #for error inputs
     while not (against.upper() == 'C' or against.upper() == 'O'):
         print("Incorrect input. Please Try again!")
@@ -132,6 +112,8 @@ def play_against():
 
     if against.upper() == 'O':
         sign_select()
+        #ToDO actual move funtion
+
         #implemet oponent
     elif against.upper() == 'C':
         sign_select()
@@ -139,7 +121,20 @@ def play_against():
         #implement AI against the computer imposible to win level of difficulty hard
         return 0
 
-#possibilities of win
+# Generic Move function, can work for either sign
+def move(s):
+    placement = int(input("Where do you want to put your sign? (input from 1-9)"))
+
+    #ToDo also put in the while loop is that stop is already taken by X or O
+    #while placement not in '1 2 3 4 5 6 7 8 9'.split():
+     #print("That number is not in the range or that spot is already taken. Try again!")
+            #lacement = int(input("Where do you want to put your sign? (input from 1-9)"))
+
+    newBoard[placement] == s
+    draw(newBoard)
+
+
+#ToDo possibilities of win
 def win(sign):
     #all win possibilities
     if newBoard[7] == sign and newBoard[8] == sign and newBoard[9] == sign:
@@ -178,15 +173,23 @@ def win(sign):
         print("Congratulations, " + str(sign) + " won!")
         play_again()
 
+def play_again():
+    again = input('Do you want to play again?(Yes or No):')
+    while again.lower() != 'yes' or again.lower() != 'no':
+        print('wrong input, please try again!')
+        again = input('Do you want to play again?(Yes or No)')
+
+    if again.lower() == 'no':
+       print('Thanks for playing!')
+    else:
+        return main()
+
 
 def main():
 
     print("Welcome to Textual Tic-Tac-Toe!")
     print("You can either play with a friend, or you can play against the computer!")
     play_against()
-
-    #put it inside play against.
-    #sign_select()
 
 main()
 
