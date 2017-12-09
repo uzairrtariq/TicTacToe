@@ -8,8 +8,8 @@ from time import sleep
 import sys
 
 #Public constants
-player1_sign = ''
-player2_sign = ''
+player1_sign = ""
+player2_sign = ""
 
 #Initialized board with spaces
 newBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
@@ -31,25 +31,30 @@ def draw(newBoard):
 
 def sign_select():
 
-    player1_sign = input("Choose between X and O: ")
-    player2_sign = ''
-    while not (player1_sign.upper() == 'X' or player1_sign.upper() == 'O'):
+    p1_sign = input("Choose between X and O: ")
+    p2_sign = ''
+    while not (p1_sign.upper() == 'X' or p1_sign.upper() == 'O'):
         print("Please enter the correct input. X or O. Try again!")
-        player1_sign = input("Choose between X and O: ")
-    player1_sign.upper()
-    player2_sign.upper()
+        p1_sign = input("Choose between X and O: ")
+    p1_sign = p1_sign.upper()
+    p2_sign = p2_sign.upper()
 
-    if player1_sign.upper() == "X":
-        player2_sign = "O"
+    if p1_sign.upper() == "X":
+        p2_sign = 'O'
+        player1_sign = p1_sign
+        player2_sign = p2_sign
     else:
-        player2_sign = "X"
+        p2_sign = 'X'
+        player1_sign = p1_sign
+        player2_sign = p2_sign
 
-    print("You are: " + str(player1_sign.upper()))
-    print("Player2 is :" + str(player2_sign.upper()))
+    print("You are: " + str(player1_sign))
+    print("Player2 is : " + str(player2_sign))
     print("Let's begin! ")
-    toss()
+    toss(player1_sign, player2_sign)
 
-def toss():
+
+def toss(p1,p2):
     print("We will have a toss for who will go first.")
 
     HorT = input("You can choose; Head or Tails? Please type in 'H' or 'T': ")
@@ -74,13 +79,18 @@ def toss():
             print("Congratulations. You have won the toss and you will make the first move. ")
             print("Generating table for you..")
             print_slowly("LOADING")
+            print(str(p1))
             draw(newBoard)
+            move(p1)
+
 
         elif random_int == tails:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
+            print(str(p2))
             draw(newBoard)
+            move(p2)
 
 
     elif HorT.upper() == "T":
@@ -88,13 +98,17 @@ def toss():
             print("Congratulations. You have won the toss and you will make the first move. ")
             print("Generating table for you..")
             print_slowly("LOADING")
+            print(str(p1))
             draw(newBoard)
+            move(p1)
 
         else:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
+            print(str(p2))
             draw(newBoard)
+            move(p2)
 
 
 def print_slowly(text):
@@ -119,19 +133,32 @@ def play_against():
         sign_select()
 
         #implement AI against the computer imposible to win level of difficulty hard
-        return 0
 
 # Generic Move function, can work for either sign
 def move(s):
-    placement = int(input("Where do you want to put your sign? (input from 1-9)"))
+    while not (win("X") or win("O")):
+        placement = int(input("Where do you want to put your sign? (input from 1-9)"))
 
-    #ToDo also put in the while loop is that stop is already taken by X or O
-    #while placement not in '1 2 3 4 5 6 7 8 9'.split():
-     #print("That number is not in the range or that spot is already taken. Try again!")
-            #lacement = int(input("Where do you want to put your sign? (input from 1-9)"))
+        print("placement pass")
 
-    newBoard[placement] == s
-    draw(newBoard)
+        #ToDo also put in the while loop is that stop is already taken by X or O
+        #while placement not in '1 2 3 4 5 6 7 8 9'.split():
+         #print("That number is not in the range or that spot is already taken. Try again!")
+                #lacement = int(input("Where do you want to put your sign? (input from 1-9)"))
+
+
+
+        newBoard[placement] = s
+        print("The move sign is " + str(s))
+        print("The final list is:" + str(newBoard))
+        # newBoard[placement] == "X"
+        draw(newBoard)
+
+        if s == "X":
+            s = "O"
+        elif s == "O":
+            s = "X"
+
 
 
 #ToDo possibilities of win
