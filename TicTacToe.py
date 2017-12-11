@@ -10,7 +10,7 @@ import sys
 #Public constants
 player1_sign = ""
 player2_sign = ""
-
+global against
 #Initialized board with spaces
 newBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 
@@ -66,7 +66,7 @@ def toss(p1,p2):
         print("Please enter the correct input, H or T. Try again!")
         HorT = input("You can choose; Head or Tails? Please type in 'H' or 'T': ")
 
-    random_int = random.randint(1,3)
+    random_int = random.randint(1,2)
     #random_int = 2
     heads = 1
     tails = 2
@@ -79,18 +79,28 @@ def toss(p1,p2):
             print("Congratulations. You have won the toss and you will make the first move. ")
             print("Generating table for you..")
             print_slowly("LOADING")
-            print(str(p1))
             draw(newBoard)
-            move(p1)
+
+            print(str(against))
+
+            if against.upper() == "C":
+                ai(p1)
+            elif against.upper() == "O":
+                move(p1)
 
 
         elif random_int == tails:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
-            print(str(p2))
             draw(newBoard)
-            move(p2)
+
+            print(str(against))
+            if against.upper() == "C":
+                ai_computerfirst(p2)
+            elif against.upper() == "O":
+                move(p2)
+
 
 
     elif HorT.upper() == "T":
@@ -98,17 +108,25 @@ def toss(p1,p2):
             print("Congratulations. You have won the toss and you will make the first move. ")
             print("Generating table for you..")
             print_slowly("LOADING")
-            print(str(p1))
             draw(newBoard)
-            move(p1)
+
+            print(str(against))
+            if against.upper() == "C":
+                ai(p1)
+            elif against.upper() == "O":
+                move(p1)
 
         else:
             print("Ops! You lost the toss. Player 2 will make the first move!")
             print("Generating table for you..")
             print_slowly("LOADING")
-            print(str(p2))
             draw(newBoard)
-            move(p2)
+
+            print(str(against))
+            if against.upper() == "C":
+                ai_computerfirst(p2)
+            elif against.upper() == "O":
+                move(p2)
 
 
 def print_slowly(text):
@@ -124,40 +142,16 @@ def play_against():
         print("Incorrect input. Please Try again!")
         against = input("Do you want to play against the computer or another opponent? type 'C' or 'O': ")
 
+    against = against.upper()
+
+
+
     if against.upper() == 'O':
         sign_select()
-        #ToDO actual move funtion
-
-        #implemet oponent
     elif against.upper() == 'C':
         sign_select()
 
-        #implement AI against the computer imposible to win level of difficulty hard
-
-# Generic Move function, can work for either sign
-def move(s):
-    while not (win("X") or win("O")):
-        placement = int(input("Where do you want to put your sign? (input from 1-9)"))
-
-        print("placement pass")
-
-        #ToDo also put in the while loop is that stop is already taken by X or O
-        #while placement not in '1 2 3 4 5 6 7 8 9'.split():
-         #print("That number is not in the range or that spot is already taken. Try again!")
-                #lacement = int(input("Where do you want to put your sign? (input from 1-9)"))
-
-
-
-        newBoard[placement] = s
-        print("The move sign is " + str(s))
-        print("The final list is:" + str(newBoard))
-        # newBoard[placement] == "X"
-        draw(newBoard)
-
-        if s == "X":
-            s = "O"
-        elif s == "O":
-            s = "X"
+        #implement AI against the computer imposible to win level of difficulty har
 
 
 
@@ -202,15 +196,174 @@ def win(sign):
 
 def play_again():
     again = input('Do you want to play again?(Yes or No):')
-    while again.lower() != 'yes' or again.lower() != 'no':
+    while not (again.lower() == 'yes' or again.lower() == 'no'):
         print('wrong input, please try again!')
         again = input('Do you want to play again?(Yes or No)')
+
+
 
     if again.lower() == 'no':
        print('Thanks for playing!')
     else:
         return main()
 
+# Generic Move function, can work for either sign
+def move(s):
+    while not (win("X") or win("O")):
+
+        if not (win("X") or win("O")):
+            placement = int(input("Where do you want to put your sign? (input from 1-9)"))
+
+            print("placement pass")
+
+            #ToDo also put in the while loop is that stop is already taken by X or O
+            #while placement not in '1 2 3 4 5 6 7 8 9'.split():
+             #print("That number is not in the range or that spot is already taken. Try again!")
+                    #lacement = int(input("Where do you want to put your sign? (input from 1-9)"))
+
+
+
+            newBoard[placement] = s
+            print("The move sign is " + str(s))
+            print("The final list is:" + str(newBoard))
+            # newBoard[placement] == "X"
+            draw(newBoard)
+
+            if s == "X":
+                s = "O"
+            elif s == "O":
+                s = "X"
+    print("this is a draw!!!!!!!")
+
+def ai(s):
+    while not (win("X") or win("O")):
+        placement = int(input("Where do you want to put your sign? (input from 1-9)"))
+        print("placement pass")
+
+        #Error
+        while not isAvailable(newBoard, placement):
+            print("This spot is already taken, please try another spot!")
+            placement = int(input("Where do you want to put your sign? (input from 1-9)"))
+
+        newBoard[placement] = s
+        print("The move sign is " + str(s))
+        print("The final list is:" + str(newBoard))
+        # newBoard[placement] == "X"
+        draw(newBoard)
+
+        #sign flipping
+        if s == "X":
+            s = "O"
+        elif s == "O":
+            s = "X"
+
+        #Printing AI
+        print("Now, computer is going to make a move!")
+        print_slowly("WAIT..")
+        compmove = getComputerMove(newBoard)
+        newBoard[compmove] = s
+        draw(newBoard)
+
+        #sign flipping
+        if s == "X":
+            s = "O"
+        elif s == "O":
+            s = "X"
+
+def ai_computerfirst(s):
+    while not (win("X") or win("O")):
+
+        #Printing AI
+        print("Now, computer is going to make a move!")
+        print_slowly("WAIT..")
+        compmove = getComputerMove(newBoard)
+        newBoard[compmove] = s
+        draw(newBoard)
+
+        #sign flipping
+        if s == "X":
+            s = "O"
+        elif s == "O":
+            s = "X"
+
+
+        placement = int(input("Where do you want to put your sign? (input from 1-9)"))
+        print("placement pass")
+
+        #Error
+        while not isAvailable(newBoard, placement):
+            print("This spot is already taken, please try another spot!")
+            placement = int(input("Where do you want to put your sign? (input from 1-9)"))
+
+        newBoard[placement] = s
+        print("The move sign is " + str(s))
+        print("The final list is:" + str(newBoard))
+        # newBoard[placement] == "X"
+        draw(newBoard)
+
+        #sign flipping
+        if s == "X":
+            s = "O"
+        elif s == "O":
+            s = "X"
+
+
+
+#copied functions
+
+def checkDraw(b):
+    return ' ' not in b
+
+def getBoardCopy(b):
+    # Make a duplicate of the board. When testing moves we don't want to
+    # change the actual board
+    dupeBoard = []
+    for j in b:
+        dupeBoard.append(j)
+    return dupeBoard
+
+def testWinMove(b, mark, i):
+    # b = the board
+    # mark = 0 or X
+    # i = the square to check if makes a win
+    bCopy = getBoardCopy(b)
+    bCopy[i] = mark
+    return win(mark)
+
+def randomComputerMove(b):
+    #randomizer
+    for i in range(0, 9):
+        if b[i] == ' ':
+            return i
+
+
+def getComputerMove(b):
+    # Check computer win moves
+    for i in range(0, 9):
+        if b[i] == ' ' and testWinMove(b, 'X', i):
+            return i
+    # Check player win moves
+    for i in range(0, 9):
+        if b[i] == ' ' and testWinMove(b, '0', i):
+            return i
+    # Play a corner
+    for i in [7, 9, 1, 3]:
+        if b[i] == ' ':
+            return i
+    # Play center
+    if b[5] == ' ':
+        return 5
+    #Play a side
+    for i in [4, 8, 6, 2]:
+        if b[i] == ' ':
+            return i
+
+
+def isAvailable(board, placement):
+    if newBoard[placement] == " ":
+        return True
+    else:
+        return False
 
 def main():
 
